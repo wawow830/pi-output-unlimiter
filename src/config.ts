@@ -4,15 +4,17 @@ import { dirname } from "node:path";
 
 export interface Settings {
   enabled: boolean;
+  recoverTerminated: boolean;
   maxContinuations: number;
   message: string;
 }
 
 export const DEFAULT_SETTINGS: Readonly<Settings> = Object.freeze({
   enabled: true,
+  recoverTerminated: true,
   maxContinuations: 3,
   message:
-    "Your previous response hit the output token limit. Continue exactly where you stopped, without repeating previous content. Finish the original request.",
+    "Your previous response was interrupted. Continue exactly where you stopped, without repeating previous content. Finish the original request.",
 });
 
 export function validateSettings(value: unknown): Settings {
@@ -25,6 +27,7 @@ export function validateSettings(value: unknown): Settings {
   }
   const settings = { ...DEFAULT_SETTINGS, ...input };
   if (typeof settings.enabled !== "boolean") throw new Error("enabled must be a boolean.");
+  if (typeof settings.recoverTerminated !== "boolean") throw new Error("recoverTerminated must be a boolean.");
   if (!Number.isSafeInteger(settings.maxContinuations) || settings.maxContinuations < 0) {
     throw new Error("maxContinuations must be a non-negative safe integer.");
   }

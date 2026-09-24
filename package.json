@@ -1,7 +1,7 @@
 {
   "name": "pi-output-unlimiter",
   "version": "0.1.0",
-  "description": "Continue length-truncated Pi answers across model requests.",
+  "description": "Preserve and continue Pi answers interrupted by output limits or terminated streams.",
   "type": "module",
   "keywords": [
     "pi-package"
